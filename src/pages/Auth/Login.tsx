@@ -7,10 +7,12 @@ import { Label } from '@/components/ui/Label';
 import { Divider } from '@/components/ui/Divider';
 
 export function Login() {
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, isLoading: isAuthLoading, login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  if (isAuthLoading) return <div className="h-screen w-full flex items-center justify-center bg-background"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>;
 
   if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />;

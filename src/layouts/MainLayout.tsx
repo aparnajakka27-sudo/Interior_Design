@@ -6,9 +6,13 @@ import { TopHeader } from './TopHeader';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function MainLayout() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  if (isLoading) {
+    return <div className="h-screen w-full flex items-center justify-center bg-background"><div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div></div>;
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
