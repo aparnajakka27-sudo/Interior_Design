@@ -135,7 +135,7 @@ export function Sidebar({ className, onNavClick }: { className?: string, onNavCl
                   <Link
                     key={item.path}
                     to={item.path}
-                    onClick={onNavClick}
+                    onClick={() => { if (onNavClick) onNavClick(); }}
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                       isActive 

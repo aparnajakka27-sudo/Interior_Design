@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Sidebar } from './Sidebar';
 import { TopHeader } from './TopHeader';
@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export function MainLayout() {
   const { isAuthenticated } = useAuth();
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (!isAuthenticated) {
@@ -43,7 +44,7 @@ export function MainLayout() {
         
         {/* Scrollable Page Content */}
         <div className="flex-1 overflow-auto p-4 md:p-6 custom-scrollbar">
-          <ErrorBoundary><Outlet /></ErrorBoundary>
+          <ErrorBoundary key={location.pathname}><Outlet /></ErrorBoundary>
         </div>
       </main>
     </div>
