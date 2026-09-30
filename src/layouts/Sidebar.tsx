@@ -1,6 +1,6 @@
 import { History } from 'lucide-react';
 import { Calendar } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { usePermissions } from '@/hooks/usePermissions';
 import { type Permission } from '@/lib/permissions';
@@ -102,6 +102,7 @@ const navGroups: NavGroup[] = [
 export function Sidebar({ className, onNavClick }: { className?: string, onNavClick?: () => void }) {
   const { can } = usePermissions();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Filter groups and items based on permissions
   const visibleGroups = navGroups.map(group => {
@@ -132,11 +133,11 @@ export function Sidebar({ className, onNavClick }: { className?: string, onNavCl
                 const Icon = item.icon;
                 
                 return (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    onClick={() => { if (onNavClick) onNavClick(); }}
-                    className={cn(
+                  <a
+                      key={item.path}
+                      href={item.path}
+                      onClick={(e) => { e.preventDefault(); if (onNavClick) onNavClick(); navigate(item.path); }}
+                      className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                       isActive 
                         ? "bg-accent/10 text-accent" 
@@ -145,7 +146,7 @@ export function Sidebar({ className, onNavClick }: { className?: string, onNavCl
                   >
                     <Icon className="h-4 w-4 shrink-0" />
                     {item.name}
-                  </Link>
+                  </a>
                 );
               })}
             </div>
