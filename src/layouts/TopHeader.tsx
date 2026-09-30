@@ -119,6 +119,19 @@ export function TopHeader({ onMenuClick }: { onMenuClick: () => void }) {
                 <p className="text-sm font-medium text-primary">{user?.name}</p>
                 <p className="text-xs text-muted">{user?.role}</p>
               </div>
+              <div className="px-4 py-2 border-b border-border xl:hidden">
+                <label className="text-xs text-muted block mb-1">Demo as:</label>
+                <select 
+                  className="w-full bg-background border border-border rounded px-2 py-1.5 text-xs text-primary focus:outline-none focus:border-accent"
+                  value={user?.id || ''}
+                  onChange={(e) => { switchUser(e.target.value); setShowProfileMenu(false); }}
+                >
+                  {initialEmployees.map(emp => (
+                    <option key={emp.id} value={emp.id}>{emp.role}</option>
+                  ))}
+                </select>
+              </div>
+
               <Link to="/settings/profile" onClick={() => setShowProfileMenu(false)}>
                 <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-secondary hover:text-primary hover:bg-surface transition-colors">
                   <SettingsIcon className="h-4 w-4" />

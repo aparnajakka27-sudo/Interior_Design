@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Sidebar } from './Sidebar';
 import { TopHeader } from './TopHeader';
 import { useAuth } from '@/contexts/AuthContext';
@@ -42,7 +43,7 @@ export function MainLayout() {
         
         {/* Scrollable Page Content */}
         <div className="flex-1 overflow-auto p-4 md:p-6 custom-scrollbar">
-          <Outlet />
+          <ErrorBoundary><Outlet /></ErrorBoundary>
         </div>
       </main>
     </div>
