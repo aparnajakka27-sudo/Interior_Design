@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
 import { PermissionRoute } from '@/components/auth/PermissionRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -72,12 +72,11 @@ import { Workload } from './pages/Team/Workload';
 import { RolesPermissions } from './pages/Team/RolesPermissions';
 
 
-function App() {
-  return (
-    <ThemeProvider>
-      <AuthProvider>
-      <BrowserRouter>
-        <Routes>
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      
           {/* Public Auth Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -177,10 +176,18 @@ function App() {
             {/* 404 Route */}
             <Route path="*" element={<NotFound />} />
           </Route>
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-      </ThemeProvider>
+        
+    </>
+  )
+);
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
