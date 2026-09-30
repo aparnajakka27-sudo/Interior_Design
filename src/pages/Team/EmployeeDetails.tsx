@@ -1,4 +1,5 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Link } from '@/components/ui/Link';
 import { usePermissions } from '@/hooks/usePermissions';
 import { ROLE_PERMISSIONS } from '@/lib/permissions';
 import { Button } from '@/components/ui/Button';

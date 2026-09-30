@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@/components/ui/Link';
 import { Input } from '@/components/ui/Input';
 import { Search, Filter, AlertCircle } from 'lucide-react';
 import { initialEmployees, initialTasks } from '@/lib/mock-data';

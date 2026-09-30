@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Link } from '@/components/ui/Link';
 import { usePermissions } from '@/hooks/usePermissions';
 import { Can } from '@/components/auth/Can';
 import { AccessDenied } from '@/pages/AccessDenied';

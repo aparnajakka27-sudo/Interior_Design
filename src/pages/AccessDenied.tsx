@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from '@/components/ui/Link';
 import { ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 

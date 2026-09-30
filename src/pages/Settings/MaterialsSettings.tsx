@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { GripVertical, Plus, Trash2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@/components/ui/Link';
 
 export function MaterialsSettings() {
   const categories = [

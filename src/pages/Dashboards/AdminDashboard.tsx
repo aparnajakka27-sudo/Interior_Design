@@ -8,7 +8,7 @@ import {
   ArrowRight, AlertCircle, Clock, CheckCircle2, AlertTriangle 
 , Bell} from 'lucide-react';
 import { UpcomingEvents } from '@/components/calendar/UpcomingEvents';
-import { Link } from 'react-router-dom';
+import { Link } from '@/components/ui/Link';
 import {  
   dashboardKPIs, overviewProjects, projectStages, todayActivity, 
   needsAttentionItems, projectHealthData, type ProjectHealth 
