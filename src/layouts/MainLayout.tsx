@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 export function MainLayout() {
   const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
+  console.log('MainLayout rendered, path:', location.pathname);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   if (isLoading) {
@@ -48,7 +49,7 @@ export function MainLayout() {
         
         {/* Scrollable Page Content */}
         <div className="flex-1 overflow-auto p-4 md:p-6 custom-scrollbar">
-          <ErrorBoundary key={location.pathname}><Outlet /></ErrorBoundary>
+          <ErrorBoundary><Outlet /></ErrorBoundary>
         </div>
       </main>
     </div>

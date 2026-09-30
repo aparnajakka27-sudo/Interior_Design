@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import type { ReactNode, MouseEvent } from 'react';
 
 interface LinkProps {
@@ -9,20 +8,18 @@ interface LinkProps {
 }
 
 /**
- * A custom synchronous Link component that bypasses React Router v7's concurrent 
- * startTransition wrapper to prevent transition aborts on client-side navigation.
+ * A custom synchronous Link component that uses native browser navigation
+ * to bypass React 19 / React Router v7 concurrent transition aborts.
  */
 export function Link({ to, children, className, onClick }: LinkProps) {
-  const navigate = useNavigate();
-  
   return (
     <a 
       href={to} 
       className={className}
       onClick={(e) => {
-        e.preventDefault();
+        // Do NOT prevent default. Let the browser handle the navigation natively
+        // to guarantee the UI updates (acting as a multi-page app).
         if (onClick) onClick(e);
-        navigate(to);
       }}
     >
       {children}
