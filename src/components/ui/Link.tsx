@@ -1,28 +1,14 @@
-import type { ReactNode, MouseEvent } from 'react';
+import { Link as RouterLink, type LinkProps as RouterLinkProps } from 'react-router-dom';
 
-interface LinkProps {
-  to: string;
-  children?: ReactNode;
-  className?: string;
-  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
-}
+export interface LinkProps extends RouterLinkProps {}
 
 /**
- * A custom synchronous Link component that uses native browser navigation
- * to bypass React 19 / React Router v7 concurrent transition aborts.
+ * SPA Link component using React Router for client-side navigation.
  */
-export function Link({ to, children, className, onClick }: LinkProps) {
+export function Link({ to, children, className, onClick, ...props }: LinkProps) {
   return (
-    <a 
-      href={to} 
-      className={className}
-      onClick={(e) => {
-        // Do NOT prevent default. Let the browser handle the navigation natively
-        // to guarantee the UI updates (acting as a multi-page app).
-        if (onClick) onClick(e);
-      }}
-    >
+    <RouterLink to={to} className={className} onClick={onClick} {...props}>
       {children}
-    </a>
+    </RouterLink>
   );
 }

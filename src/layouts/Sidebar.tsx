@@ -1,6 +1,6 @@
 import { History } from 'lucide-react';
 import { Calendar } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { usePermissions } from '@/hooks/usePermissions';
 import { type Permission } from '@/lib/permissions';
@@ -102,7 +102,6 @@ const navGroups: NavGroup[] = [
 export function Sidebar({ className, onNavClick }: { className?: string, onNavClick?: () => void }) {
   const { can } = usePermissions();
   const location = useLocation();
-  const navigate = useNavigate();
 
   // Filter groups and items based on permissions
   const visibleGroups = navGroups.map(group => {
@@ -129,24 +128,28 @@ export function Sidebar({ className, onNavClick }: { className?: string, onNavCl
             </h4>
             <div className="space-y-1">
               {group.items.map((item) => {
-                const isActive = location.pathname === item.path || location.pathname.startsWith(`${item.path}/`);
+                const isExactRootSection = ['/dashboard', '/finance', '/team', '/analytics', '/materials'].includes(item.path);
+                const isActive = isExactRootSection
+                  ? location.pathname === item.path
+                  : (location.pathname === item.path || location.pathname.startsWith(`${item.path}/`));
                 const Icon = item.icon;
                 
                 return (
-                  <a
-                      key={item.path}
-                      href={item.path}
-                      onClick={(e) => { e.preventDefault(); if (onNavClick) onNavClick(); navigate(item.path); }}
-                      className={cn(
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    end={isExactRootSection}
+                    onClick={() => { if (onNavClick) onNavClick(); }}
+                    className={({ isActive: navActive }) => cn(
                       "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                      isActive 
+                      (navActive || isActive)
                         ? "bg-accent/10 text-accent" 
                         : "text-secondary hover:text-primary hover:bg-elevated"
                     )}
                   >
                     <Icon className="h-4 w-4 shrink-0" />
                     {item.name}
-                  </a>
+                  </NavLink>
                 );
               })}
             </div>
